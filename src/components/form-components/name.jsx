@@ -1,23 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 
-export default function Name({ setFormData }) {
-  const [formData, setLocalFormData] = useState({
+export default function Name({ setFormData, formData }) {
+  const initialNameData = {
     name: '',
     phone: '',
     email: '',
     location: '',
     linkedin: '',
     github: ''
-  });
-
-  const handleChange = (e) => {
-    const { id, value } = e.target;
-    setLocalFormData({ ...formData, [id]: value });
   };
 
+  const [nameData, setLocalnameData] = useState(formData?.expData || initialNameData);
+
+  useEffect(() => {
+    setLocalnameData(formData?.expData || initialNameData);
+  }, [formData]);
+
+  const handleChange = (e) => {
+      const { id, value } = e.target;
+      setLocalnameData({ ...nameData, [id]: value });
+  };
   const handleSubmit = (e) => {
-    e.preventDefault();
-    setFormData(formData);
+      e.preventDefault();
+      setFormData((prevData) => ({ ...prevData, nameData }));
   };
 
   return (
@@ -28,7 +33,7 @@ export default function Name({ setFormData }) {
         type="text"
         id="name"
         required
-        value={formData.name}
+        value={nameData.name}
         onChange={handleChange}
       />
       <label>Enter your phone number:</label>
@@ -39,7 +44,7 @@ export default function Name({ setFormData }) {
         name="phone"
         pattern="[0-9]{3}[0-9]{3}[0-9]{4}"
         required
-        value={formData.phone}
+        value={nameData.phone}
         onChange={handleChange}
       />
       <label>Enter your email:</label>
@@ -49,7 +54,7 @@ export default function Name({ setFormData }) {
         id="email"
         name="email"
         required
-        value={formData.email}
+        value={nameData.email}
         onChange={handleChange}
       />
       <label>Location:</label>
@@ -58,7 +63,7 @@ export default function Name({ setFormData }) {
         type="text"
         id="location"
         required
-        value={formData.location}
+        value={nameData.location}
         onChange={handleChange}
       />
       <label>LinkedIn:</label>
@@ -66,7 +71,7 @@ export default function Name({ setFormData }) {
         className="border"
         type="text"
         id="linkedin"
-        value={formData.linkedin}
+        value={nameData.linkedin}
         onChange={handleChange}
       />
       <label>Github:</label>
@@ -74,7 +79,7 @@ export default function Name({ setFormData }) {
         className="border"
         type="text"
         id="github"
-        value={formData.github}
+        value={nameData.github}
         onChange={handleChange}
       />
       <button className="m-4 bg-blue-100 hover:bg-blue-200" type="submit">Add</button>

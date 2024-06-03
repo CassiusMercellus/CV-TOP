@@ -5,7 +5,7 @@ import Education from './form-components/education';
 import Experience from './form-components/experience';
 import Summary from './form-components/summary';
 
-export default function Forms({ setFormData }) {
+export default function Forms({ setFormData, formData }) {
   const [toggleState, setToggleState] = useState(1);
 
   const toggleTab = (index) => {
@@ -50,19 +50,19 @@ export default function Forms({ setFormData }) {
 
         <div>
           <div className={toggleState === 1 ? "flex" : "hidden"}>
-            <Name setFormData={setFormData} />
+            <Name setFormData={setFormData} formData={formData} />
           </div>
           <div className={toggleState === 2 ? "flex" : "hidden"}>
-            <Skills />
+            <Skills setFormData={setFormData} formData={formData} />
           </div>
           <div className={toggleState === 3 ? "flex" : "hidden"}>
-            <Education />
+            <Education setFormData={setFormData} formData={formData} />
           </div>
           <div className={toggleState === 4 ? "flex" : "hidden"}>
-            <Summary />
+            <Summary setFormData={setFormData} formData={formData} />
           </div>
           <div className={toggleState === 5 ? "flex" : "hidden"}>
-            <Experience />
+            <Experience setFormData={setFormData} formData={formData} />
           </div>
         </div>
       </div>
